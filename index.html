@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Father's Day eCard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .card-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 500px;
+      width: 100%;
+      overflow: hidden;
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .card-header {
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .decoration {
+      position: absolute;
+      font-size: 60px;
+      opacity: 0.1;
+    }
+    
+    .decoration:nth-child(1) {
+      top: -20px;
+      left: -20px;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .decoration:nth-child(2) {
+      bottom: -20px;
+      right: -20px;
+      animation: float 8s ease-in-out infinite 1s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .card-header h1 {
+      color: #3498db;
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+      animation: fadeInDown 1s ease-out;
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .card-header p {
+      color: #ecf0f1;
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .card-body {
+      padding: 40px 30px;
+      text-align: center;
+    }
+    
+    .greeting {
+      font-size: 22px;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-weight: 600;
+      animation: fadeIn 1s ease-out 0.6s both;
+    }
+    
+    .message-preview {
+      font-size: 14px;
+      color: #7f8c8d;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      animation: fadeIn 1s ease-out 0.9s both;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .hidden-message {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.6s ease-out, opacity 0.6s ease-out, padding 0.6s ease-out;
+    }
+    
+    .hidden-message.revealed {
+      max-height: 300px;
+      opacity: 1;
+      padding: 20px 0;
+    }
+    
+    .message-text {
+      background: #ecf0f1;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      color: #2c3e50;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    
+    .heart-icon {
+      display: inline-block;
+      animation: heartBeat 1.3s ease-in-out infinite;
+    }
+    
+    @keyframes heartBeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      14% {
+        transform: scale(1.3);
+      }
+      28% {
+        transform: scale(1);
+      }
+      42% {
+        transform: scale(1.3);
+      }
+      70% {
+        transform: scale(1);
+      }
+    }
+    
+    .reveal-btn {
+      background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+      color: white;
+      border: none;
+      padding: 14px 40px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+      animation: fadeIn 1s ease-out 1.2s both;
+    }
+    
+    .reveal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    }
+    
+    .reveal-btn:active {
+      transform: translateY(0);
+    }
+    
+    .reveal-btn.revealed {
+      background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+      box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    }
+    
+    .card-footer {
+      background: #f8f9fa;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid #ecf0f1;
+      font-size: 12px;
+      color: #95a5a6;
+      animation: fadeIn 1.5s ease-out;
+    }
+    
+    .stars {
+      font-size: 24px;
+      letter-spacing: 8px;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <div class="card-header">
+      <div class="decoration">🎯</div>
+      <div class="decoration">⚙️</div>
+      <h1>Happy Father's Day</h1>
+      <p>To the world's greatest Dad</p>
+    </div>
+    
+    <div class="card-body">
+      <div class="greeting">
+        <span class="heart-icon">❤️</span>
+      </div>
+      
+      <div class="message-preview">
+        You deserve a day to celebrate everything you do. Click below to reveal your special message.
+      </div>
+      
+      <div class="hidden-message" id="hiddenMessage">
+        <div class="message-text">
+          "Dad, looking back, I realize that some of my absolute favorite memories are simply times when you were there for me when I needed it most. Thank you for your endless patience, your quiet strength, and your unconditional love. You've taught me what it means to be a good person just by being yourself. Happy Father's Day"
+        </div>
+        <div class="stars">✨ ✨ ✨</div>
+      </div>
+      
+      <button class="reveal-btn" id="revealBtn" onclick="revealMessage()">
+        Click to Reveal Message
+      </button>
+    </div>
+    
+    <div class="card-footer">
+      Made with <span style="color: #e74c3c;">❤️</span> for Dad | Enjoy your special day!
+    </div>
+  </div>
+  
+  <script>
+    function revealMessage() {
+      const hiddenMsg = document.getElementById('hiddenMessage');
+      const btn = document.getElementById('revealBtn');
+      
+      hiddenMsg.classList.toggle('revealed');
+      
+      if (hiddenMsg.classList.contains('revealed')) {
+        btn.textContent = 'Hide Message';
+        btn.classList.add('revealed');
+      } else {
+        btn.textContent = 'Click to Reveal Message';
+        btn.classList.remove('revealed');
+      }
+    }
+  </script>
+</body>
+</html>
